@@ -1,0 +1,1158 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      element-admin源码解读(Store) | CunTian的咖啡屋
+    
+  </title>
+  <meta name="author" content="Cappuccino">
+  <meta name="keywords" content="" />
+  <meta name="description" content="CunTianの咖啡屋" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg2.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'k1qgL0vmkWdvDlIbDlr9QALd-gzGzoHsz',
+	  appKey: 'i34UCLeO4gGVYnPhuoQCgytD',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="CunTian的咖啡屋" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="cyclic">
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
+					<div><span></span></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「element-admin源码解读(Store)」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-one"><span class="path1"></span><span class="path2"></span></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-zhihu"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-pinterest2"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-instagram"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-twitter"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="url">
+		element-admin源码解读(Store)
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="url">
+		<time datetime="2024-02-25T05:30:29.000Z" itemprop="dateUpdated">
+	  		2024-02-27
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class=" ">
+			源码分析
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/_visitors" data-url="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" data-title="element-admin源码解读(Store)">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/_likes" data-url="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" data-title="element-admin源码解读(Store)" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h2 id="Store模块源码分析"><a href="#Store模块源码分析" class="headerlink" title="Store模块源码分析"></a>Store模块源码分析</h2><hr>
+<h4 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h4><p><img src="/2024/02/25/element-admin%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/menu.png"></p>
+<p>​    首先让我们来看一下目录，在本系统中<strong>Store</strong>主要用于存储一些<u>全局的共享参数</u>，包括<strong>应用参数（app.js）、错误日志（errorLog.js）、鉴权信息（permission.js）、系统设置（setting.js）、面包屑导航（tagsView.js）、用户信息（user.js）</strong></p>
+<hr>
+<h3 id="数据的存储："><a href="#数据的存储：" class="headerlink" title="数据的存储："></a>数据的存储：</h3><h4 id="app-js"><a href="#app-js" class="headerlink" title="app.js"></a>app.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">&#x27;js-cookie&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">sidebar</span>: &#123;</span><br><span class="line">    <span class="attr">opened</span>: Cookies.get(<span class="string">&#x27;sidebarStatus&#x27;</span>) ? !!+Cookies.get(<span class="string">&#x27;sidebarStatus&#x27;</span>) : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">withoutAnimation</span>: <span class="literal">false</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">device</span>: <span class="string">&#x27;desktop&#x27;</span>,</span><br><span class="line">  <span class="attr">size</span>: Cookies.get(<span class="string">&#x27;size&#x27;</span>) || <span class="string">&#x27;medium&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">TOGGLE_SIDEBAR</span>: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">    state.sidebar.opened = !state.sidebar.opened</span><br><span class="line">    state.sidebar.withoutAnimation = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">if</span> (state.sidebar.opened) &#123;</span><br><span class="line">      Cookies.set(<span class="string">&#x27;sidebarStatus&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      Cookies.set(<span class="string">&#x27;sidebarStatus&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">CLOSE_SIDEBAR</span>: <span class="function">(<span class="params">state, withoutAnimation</span>) =&gt;</span> &#123;</span><br><span class="line">    Cookies.set(<span class="string">&#x27;sidebarStatus&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">    state.sidebar.opened = <span class="literal">false</span></span><br><span class="line">    state.sidebar.withoutAnimation = withoutAnimation</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">TOGGLE_DEVICE</span>: <span class="function">(<span class="params">state, device</span>) =&gt;</span> &#123;</span><br><span class="line">    state.device = device</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">SET_SIZE</span>: <span class="function">(<span class="params">state, size</span>) =&gt;</span> &#123;</span><br><span class="line">    state.size = size</span><br><span class="line">    Cookies.set(<span class="string">&#x27;size&#x27;</span>, size)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="function"><span class="title">toggleSideBar</span>(<span class="params">&#123; commit &#125;</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;TOGGLE_SIDEBAR&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">closeSideBar</span>(<span class="params">&#123; commit &#125;, &#123; withoutAnimation &#125;</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;CLOSE_SIDEBAR&#x27;</span>, withoutAnimation)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">toggleDevice</span>(<span class="params">&#123; commit &#125;, device</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;TOGGLE_DEVICE&#x27;</span>, device)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">setSize</span>(<span class="params">&#123; commit &#125;, size</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;SET_SIZE&#x27;</span>, size)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先在头部引入网页Cookies工具类，用于后续进行cookies操作</li>
+<li>state中配置三个参数<ul>
+<li><em>sidebar</em>（侧边栏）<ul>
+<li>opened（控制开关状态)：主要使用<strong>Cookies</strong>来记录侧边栏的开关状态</li>
+<li><strong>!!</strong>   能够强制转换后续表达式返回值为boolean避免数据类型不一致的问题,例如undefined-&gt;false,null-&gt;false</li>
+<li><strong>+</strong>   则进行字符串的自动转换</li>
+<li>withoutAnimation（控制收缩动画）</li>
+</ul>
+</li>
+<li>device（设备类型）</li>
+<li>size（界面字体尺寸）</li>
+</ul>
+</li>
+</ul>
+<h4 id="errorLog-js"><a href="#errorLog-js" class="headerlink" title="errorLog.js"></a>errorLog.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">logs</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">ADD_ERROR_LOG</span>: <span class="function">(<span class="params">state, log</span>) =&gt;</span> &#123;</span><br><span class="line">    state.logs.push(log)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">CLEAR_ERROR_LOG</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">    state.logs.splice(<span class="number">0</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="function"><span class="title">addErrorLog</span>(<span class="params">&#123; commit &#125;, log</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;ADD_ERROR_LOG&#x27;</span>, log)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">clearErrorLog</span>(<span class="params">&#123; commit &#125;</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;CLEAR_ERROR_LOG&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><u>logs数组用于存储每次产生的错误日志</u></p>
+<h4 id="permission-js"><a href="#permission-js" class="headerlink" title="permission.js"></a>permission.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; asyncRoutes, constantRoutes &#125; <span class="keyword">from</span> <span class="string">&#x27;@/router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Use meta.role to determine if the current user has permission</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="variable">roles</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="variable">route</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPermission</span>(<span class="params">roles, route</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (route.meta &amp;&amp; route.meta.roles) &#123;</span><br><span class="line">    <span class="keyword">return</span> roles.some(<span class="function"><span class="params">role</span> =&gt;</span> route.meta.roles.includes(role))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Filter asynchronous routing tables by recursion</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>routes asyncRoutes</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="variable">roles</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">filterAsyncRoutes</span>(<span class="params">routes, roles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = []</span><br><span class="line"></span><br><span class="line">  routes.forEach(<span class="function"><span class="params">route</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> tmp = &#123; ...route &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasPermission(roles, tmp)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (tmp.children) &#123;</span><br><span class="line">        tmp.children = filterAsyncRoutes(tmp.children, roles)</span><br><span class="line">      &#125;</span><br><span class="line">      res.push(tmp)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">routes</span>: [],</span><br><span class="line">  <span class="attr">addRoutes</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">SET_ROUTES</span>: <span class="function">(<span class="params">state, routes</span>) =&gt;</span> &#123;</span><br><span class="line">    state.addRoutes = routes</span><br><span class="line">    state.routes = constantRoutes.concat(routes)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="function"><span class="title">generateRoutes</span>(<span class="params">&#123; commit &#125;, roles</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> accessedRoutes</span><br><span class="line">      <span class="keyword">if</span> (roles.includes(<span class="string">&#x27;admin&#x27;</span>)) &#123;</span><br><span class="line">        accessedRoutes = asyncRoutes || []</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)</span><br><span class="line">      &#125;</span><br><span class="line">      commit(<span class="string">&#x27;SET_ROUTES&#x27;</span>, accessedRoutes)</span><br><span class="line">      resolve(accessedRoutes)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>首先引入静态路由和动态路由</p>
+<ul>
+<li><strong>AcyncRouters：所有路由</strong></li>
+<li><strong>ConstantRouters：静态路由</strong></li>
+</ul>
+</li>
+<li><p><strong>hasPermisson（）</strong>： 传入<strong>角色</strong>和<strong>某个路由</strong>，判断该角色是否<strong>有使用该路由的权限</strong></p>
+</li>
+<li><p><strong>filterAsyncRoutes（）</strong>：传入<strong>角色</strong>和<strong>所有路由</strong>，过滤掉所有无权的路由，返回<strong>该用户的路由数组</strong></p>
+</li>
+<li><p><strong>generateRoutes（）</strong>：回调函数，传入<strong>角色</strong>，执行过滤方法和设置路由方法，将最终路由持久化保存在state的routes数组中，该权限下的额外路由添加在state的addRoutes数组中</p>
+</li>
+</ul>
+<h4 id="setting-js"><a href="#setting-js" class="headerlink" title="setting.js"></a>setting.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> variables <span class="keyword">from</span> <span class="string">&#x27;@/styles/element-variables.scss&#x27;</span></span><br><span class="line"><span class="keyword">import</span> defaultSettings <span class="keyword">from</span> <span class="string">&#x27;@/settings&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; showSettings, tagsView, fixedHeader, sidebarLogo &#125; = defaultSettings</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">theme</span>: variables.theme,</span><br><span class="line">  <span class="attr">showSettings</span>: showSettings,</span><br><span class="line">  <span class="attr">tagsView</span>: tagsView,</span><br><span class="line">  <span class="attr">fixedHeader</span>: fixedHeader,</span><br><span class="line">  <span class="attr">sidebarLogo</span>: sidebarLogo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">CHANGE_SETTING</span>: <span class="function">(<span class="params">state, &#123; key, value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// eslint-disable-next-line no-prototype-builtins</span></span><br><span class="line">    <span class="keyword">if</span> (state.hasOwnProperty(key)) &#123;</span><br><span class="line">      state[key] = value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="function"><span class="title">changeSetting</span>(<span class="params">&#123; commit &#125;, data</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;CHANGE_SETTING&#x27;</span>, data)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先引入全局css样式和默认配置文件</li>
+<li>设置state参数<strong>theme|showSettings|tagsView|tagsView|fixedHeader|sidebarLogo</strong></li>
+</ul>
+<h4 id="tagsView-js"><a href="#tagsView-js" class="headerlink" title="tagsView.js"></a>tagsView.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">visitedViews</span>: [],</span><br><span class="line">  <span class="attr">cachedViews</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">ADD_VISITED_VIEW</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (state.visitedViews.some(<span class="function"><span class="params">v</span> =&gt;</span> v.path === view.path)) <span class="keyword">return</span></span><br><span class="line">    state.visitedViews.push(</span><br><span class="line">      <span class="built_in">Object</span>.assign(&#123;&#125;, view, &#123;</span><br><span class="line">        <span class="attr">title</span>: view.meta.title || <span class="string">&#x27;no-name&#x27;</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">ADD_CACHED_VIEW</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (state.cachedViews.includes(view.name)) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (!view.meta.noCache) &#123;</span><br><span class="line">      state.cachedViews.push(view.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">DEL_VISITED_VIEW</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> [i, v] <span class="keyword">of</span> state.visitedViews.entries()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (v.path === view.path) &#123;</span><br><span class="line">        state.visitedViews.splice(i, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">DEL_CACHED_VIEW</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> index = state.cachedViews.indexOf(view.name)</span><br><span class="line">    index &gt; -<span class="number">1</span> &amp;&amp; state.cachedViews.splice(index, <span class="number">1</span>)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">DEL_OTHERS_VISITED_VIEWS</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    state.visitedViews = state.visitedViews.filter(<span class="function"><span class="params">v</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> v.meta.affix || v.path === view.path</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">DEL_OTHERS_CACHED_VIEWS</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> index = state.cachedViews.indexOf(view.name)</span><br><span class="line">    <span class="keyword">if</span> (index &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      state.cachedViews = state.cachedViews.slice(index, index + <span class="number">1</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// if index = -1, there is no cached tags</span></span><br><span class="line">      state.cachedViews = []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">DEL_ALL_VISITED_VIEWS</span>: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// keep affix tags</span></span><br><span class="line">    <span class="keyword">const</span> affixTags = state.visitedViews.filter(<span class="function"><span class="params">tag</span> =&gt;</span> tag.meta.affix)</span><br><span class="line">    state.visitedViews = affixTags</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">DEL_ALL_CACHED_VIEWS</span>: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">    state.cachedViews = []</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">UPDATE_VISITED_VIEW</span>: <span class="function">(<span class="params">state, view</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> v <span class="keyword">of</span> state.visitedViews) &#123;</span><br><span class="line">      <span class="keyword">if</span> (v.path === view.path) &#123;</span><br><span class="line">        v = <span class="built_in">Object</span>.assign(v, view)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="function"><span class="title">addView</span>(<span class="params">&#123; dispatch &#125;, view</span>)</span> &#123;</span><br><span class="line">    dispatch(<span class="string">&#x27;addVisitedView&#x27;</span>, view)</span><br><span class="line">    dispatch(<span class="string">&#x27;addCachedView&#x27;</span>, view)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">addVisitedView</span>(<span class="params">&#123; commit &#125;, view</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;ADD_VISITED_VIEW&#x27;</span>, view)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">addCachedView</span>(<span class="params">&#123; commit &#125;, view</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;ADD_CACHED_VIEW&#x27;</span>, view)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">delView</span>(<span class="params">&#123; dispatch, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(<span class="string">&#x27;delVisitedView&#x27;</span>, view)</span><br><span class="line">      dispatch(<span class="string">&#x27;delCachedView&#x27;</span>, view)</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        <span class="attr">visitedViews</span>: [...state.visitedViews],</span><br><span class="line">        <span class="attr">cachedViews</span>: [...state.cachedViews]</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delVisitedView</span>(<span class="params">&#123; commit, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_VISITED_VIEW&#x27;</span>, view)</span><br><span class="line">      resolve([...state.visitedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delCachedView</span>(<span class="params">&#123; commit, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_CACHED_VIEW&#x27;</span>, view)</span><br><span class="line">      resolve([...state.cachedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">delOthersViews</span>(<span class="params">&#123; dispatch, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(<span class="string">&#x27;delOthersVisitedViews&#x27;</span>, view)</span><br><span class="line">      dispatch(<span class="string">&#x27;delOthersCachedViews&#x27;</span>, view)</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        <span class="attr">visitedViews</span>: [...state.visitedViews],</span><br><span class="line">        <span class="attr">cachedViews</span>: [...state.cachedViews]</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delOthersVisitedViews</span>(<span class="params">&#123; commit, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_OTHERS_VISITED_VIEWS&#x27;</span>, view)</span><br><span class="line">      resolve([...state.visitedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delOthersCachedViews</span>(<span class="params">&#123; commit, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_OTHERS_CACHED_VIEWS&#x27;</span>, view)</span><br><span class="line">      resolve([...state.cachedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">delAllViews</span>(<span class="params">&#123; dispatch, state &#125;, view</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(<span class="string">&#x27;delAllVisitedViews&#x27;</span>, view)</span><br><span class="line">      dispatch(<span class="string">&#x27;delAllCachedViews&#x27;</span>, view)</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        <span class="attr">visitedViews</span>: [...state.visitedViews],</span><br><span class="line">        <span class="attr">cachedViews</span>: [...state.cachedViews]</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delAllVisitedViews</span>(<span class="params">&#123; commit, state &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_ALL_VISITED_VIEWS&#x27;</span>)</span><br><span class="line">      resolve([...state.visitedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">delAllCachedViews</span>(<span class="params">&#123; commit, state &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;DEL_ALL_CACHED_VIEWS&#x27;</span>)</span><br><span class="line">      resolve([...state.cachedViews])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">updateVisitedView</span>(<span class="params">&#123; commit &#125;, view</span>)</span> &#123;</span><br><span class="line">    commit(<span class="string">&#x27;UPDATE_VISITED_VIEW&#x27;</span>, view)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>visitedViews</strong>用于存储前几个父标签，<strong>cachedViews</strong>用于存储正在访问的当前标签</li>
+<li><strong>visitedViews</strong>通过遍历的方式生成，主要方式是传入路由时，判断path是否一致，如果不一致则更新</li>
+<li><strong>cachedViews</strong>通过indexOf函数查询并修改</li>
+</ul>
+<h4 id="user-js"><a href="#user-js" class="headerlink" title="user.js"></a>user.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; login, logout, getInfo &#125; <span class="keyword">from</span> <span class="string">&#x27;@/api/user&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; getToken, setToken, removeToken &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/auth&#x27;</span></span><br><span class="line"><span class="keyword">import</span> router, &#123; resetRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;@/router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">token</span>: getToken(),</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">avatar</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">introduction</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">roles</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="attr">SET_TOKEN</span>: <span class="function">(<span class="params">state, token</span>) =&gt;</span> &#123;</span><br><span class="line">    state.token = token</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">SET_INTRODUCTION</span>: <span class="function">(<span class="params">state, introduction</span>) =&gt;</span> &#123;</span><br><span class="line">    state.introduction = introduction</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">SET_NAME</span>: <span class="function">(<span class="params">state, name</span>) =&gt;</span> &#123;</span><br><span class="line">    state.name = name</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">SET_AVATAR</span>: <span class="function">(<span class="params">state, avatar</span>) =&gt;</span> &#123;</span><br><span class="line">    state.avatar = avatar</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">SET_ROLES</span>: <span class="function">(<span class="params">state, roles</span>) =&gt;</span> &#123;</span><br><span class="line">    state.roles = roles</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="comment">// user login</span></span><br><span class="line">  <span class="function"><span class="title">login</span>(<span class="params">&#123; commit &#125;, userInfo</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; username, password &#125; = userInfo</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      login(&#123; <span class="attr">username</span>: username.trim(), <span class="attr">password</span>: password &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; data &#125; = response</span><br><span class="line">        commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, data.token)</span><br><span class="line">        setToken(data.token)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// get user info</span></span><br><span class="line">  <span class="function"><span class="title">getInfo</span>(<span class="params">&#123; commit, state &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      getInfo(state.token).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; data &#125; = response</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">          reject(<span class="string">&#x27;Verification failed, please Login again.&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> &#123; roles, name, avatar, introduction &#125; = data</span><br><span class="line"></span><br><span class="line">        <span class="comment">// roles must be a non-empty array</span></span><br><span class="line">        <span class="keyword">if</span> (!roles || roles.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">          reject(<span class="string">&#x27;getInfo: roles must be a non-null array!&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        commit(<span class="string">&#x27;SET_ROLES&#x27;</span>, roles)</span><br><span class="line">        commit(<span class="string">&#x27;SET_NAME&#x27;</span>, name)</span><br><span class="line">        commit(<span class="string">&#x27;SET_AVATAR&#x27;</span>, avatar)</span><br><span class="line">        commit(<span class="string">&#x27;SET_INTRODUCTION&#x27;</span>, introduction)</span><br><span class="line">        resolve(data)</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// user logout</span></span><br><span class="line">  <span class="function"><span class="title">logout</span>(<span class="params">&#123; commit, state, dispatch &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      logout(state.token).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">        commit(<span class="string">&#x27;SET_ROLES&#x27;</span>, [])</span><br><span class="line">        removeToken()</span><br><span class="line">        resetRouter()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// reset visited views and cached views</span></span><br><span class="line">        <span class="comment">// to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485</span></span><br><span class="line">        dispatch(<span class="string">&#x27;tagsView/delAllViews&#x27;</span>, <span class="literal">null</span>, &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"></span><br><span class="line">        resolve()</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// remove token</span></span><br><span class="line">  <span class="function"><span class="title">resetToken</span>(<span class="params">&#123; commit &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      commit(<span class="string">&#x27;SET_ROLES&#x27;</span>, [])</span><br><span class="line">      removeToken()</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// dynamically modify permissions</span></span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">changeRoles</span>(<span class="params">&#123; commit, dispatch &#125;, role</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> token = role + <span class="string">&#x27;-token&#x27;</span></span><br><span class="line"></span><br><span class="line">    commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, token)</span><br><span class="line">    setToken(token)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; roles &#125; = <span class="keyword">await</span> dispatch(<span class="string">&#x27;getInfo&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    resetRouter()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// generate accessible routes map based on roles</span></span><br><span class="line">    <span class="keyword">const</span> accessRoutes = <span class="keyword">await</span> dispatch(<span class="string">&#x27;permission/generateRoutes&#x27;</span>, roles, &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">    <span class="comment">// dynamically add accessible routes</span></span><br><span class="line">    router.addRoutes(accessRoutes)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// reset visited views and cached views</span></span><br><span class="line">    dispatch(<span class="string">&#x27;tagsView/delAllViews&#x27;</span>, <span class="literal">null</span>, &#123; <span class="attr">root</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先引入几个模块：<strong>user的API接口请求函数</strong>、<strong>token的配置函数</strong>、<strong>路由的配置函数</strong></li>
+<li>主要存储state参数为：<strong>用户信息相关参数（name、avatar、introduction）</strong>、<strong>鉴权token</strong>、<strong>角色roles数组</strong></li>
+<li>主要功能需要更新用户信息并持久化存储至全局，调用方法<strong>配置用户信息</strong>，生成<strong>token</strong>，调用获取<strong>用户信息的API</strong>以取得用户<strong>角色</strong>，并调用<strong>路由的配置函数（先前配置的）</strong>来生成动态路由。</li>
+</ul>
+<hr>
+<h3 id="数据的获取："><a href="#数据的获取：" class="headerlink" title="数据的获取："></a>数据的获取：</h3><h4 id="代码演示："><a href="#代码演示：" class="headerlink" title="代码演示："></a>代码演示：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getters = &#123;</span><br><span class="line">  <span class="attr">sidebar</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.app.sidebar,</span><br><span class="line">  <span class="attr">size</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.app.size,</span><br><span class="line">  <span class="attr">device</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.app.device,</span><br><span class="line">  <span class="attr">visitedViews</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.tagsView.visitedViews,</span><br><span class="line">  <span class="attr">cachedViews</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.tagsView.cachedViews,</span><br><span class="line">  <span class="attr">token</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.user.token,</span><br><span class="line">  <span class="attr">avatar</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.user.avatar,</span><br><span class="line">  <span class="attr">name</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.user.name,</span><br><span class="line">  <span class="attr">introduction</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.user.introduction,</span><br><span class="line">  <span class="attr">roles</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.user.roles,</span><br><span class="line">  <span class="attr">permission_routes</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.permission.routes,</span><br><span class="line">  <span class="attr">errorLogs</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.errorLog.logs</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> getters</span><br></pre></td></tr></table></figure>
+
+<p>由于获取数据的方式都大同小异。因此，设置通用getter类来获取全部state参数。</p>
+<hr>
+<h3 id="Store的生成："><a href="#Store的生成：" class="headerlink" title="Store的生成："></a>Store的生成：</h3><p>将store初始化配置在Vuex，进行模块化管理，以下是代码展示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">import</span> getters <span class="keyword">from</span> <span class="string">&#x27;./getters&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://webpack.js.org/guides/dependency-management/#requirecontext</span></span><br><span class="line"><span class="keyword">const</span> modulesFiles = <span class="built_in">require</span>.context(<span class="string">&#x27;./modules&#x27;</span>, <span class="literal">true</span>, <span class="regexp">/\.js$/</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// you do not need `import app from &#x27;./modules/app&#x27;`</span></span><br><span class="line"><span class="comment">// it will auto require all vuex module from modules file</span></span><br><span class="line"><span class="keyword">const</span> modules = modulesFiles.keys().reduce(<span class="function">(<span class="params">modules, modulePath</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// set &#x27;./app.js&#x27; =&gt; &#x27;app&#x27;</span></span><br><span class="line">  <span class="keyword">const</span> moduleName = modulePath.replace(<span class="regexp">/^\.\/(.*)\.\w+$/</span>, <span class="string">&#x27;$1&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> value = modulesFiles(modulePath)</span><br><span class="line">  modules[moduleName] = value.default</span><br><span class="line">  <span class="keyword">return</span> modules</span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules,</span><br><span class="line">  getters</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="全局调用Store："><a href="#全局调用Store：" class="headerlink" title="全局调用Store："></a>全局调用Store：</h3><p>​    最后直接在js中调用更新store即可,以<strong>用户登录</strong>为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.$store.dispatch(<span class="string">&#x27;user/login&#x27;</span>, <span class="built_in">this</span>.loginForm);</span><br></pre></td></tr></table></figure>
+
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover5.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2024/02/27/MetaFac%E6%95%B0%E5%AD%97%E5%B7%A5%E5%8E%82/" title="MetaFac——数字工厂案例展示" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2024/02/24/Express%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8ERouter/" title="Express中间件与Router" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/02/27/MetaFac%E6%95%B0%E5%AD%97%E5%B7%A5%E5%8E%82/" title="MetaFac——数字工厂案例展示">
+								MetaFac——数字工厂案例展示			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 27日, 2024				
+							</p>
+							<p class="relate-post-content">
+								项目架构1.前端（基于vue.js开发）
+2.后端 （基于springboot、tomcat开发）
+3.数据库（基于MySQL数据库）
+4.可视化模块（基于three.js开发）
+5.框架使用（JeecgBoot、FineReport...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/02/27/MetaFac%E6%95%B0%E5%AD%97%E5%B7%A5%E5%8E%82/" title="MetaFac——数字工厂案例展示">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover6.jpg" alt="MetaFac——数字工厂案例展示"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/11/element%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/" title="element多级菜单组件封装">
+								element多级菜单组件封装			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								父组件的封装123456789101112131415161718192021222324252627&lt;template&gt;  &lt;div id=&quot;sidebar_box&quot;&gt;    &lt;el...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/11/element%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85/" title="element多级菜单组件封装">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover16.jpg" alt="element多级菜单组件封装"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/22/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="Vue双向绑定及数据代理底层原理">
+								Vue双向绑定及数据代理底层原理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 22日, 2022				
+							</p>
+							<p class="relate-post-content">
+								Vue双向绑定及数据代理底层原理​    vue数据的双向绑定是通过数据劫持结合发布者-订阅者模式的方式来实现的。其核心就是通过Object.defineProperty()方法设置set和get函数来实现数据的劫持，在数据变化时发布...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/22/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8F%8A%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="Vue双向绑定及数据代理底层原理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover12.jpg" alt="Vue双向绑定及数据代理底层原理"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/11/24/Three-js%E5%AF%BC%E5%85%A5%E5%A4%96%E9%83%A83D%E6%A8%A1%E5%9E%8B/" title="Three.js导入外部3D模型">
+								Three.js导入外部3D模型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 24日, 2021				
+							</p>
+							<p class="relate-post-content">
+								首先引入两个库
+12&lt;script src=&quot;http://www.yanhuangxueyuan.com/threejs/examples/js/loaders/OBJLoader.js&quot;&gt;&lt;/...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/11/24/Three-js%E5%AF%BC%E5%85%A5%E5%A4%96%E9%83%A83D%E6%A8%A1%E5%9E%8B/" title="Three.js导入外部3D模型">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover5.jpg" alt="Three.js导入外部3D模型"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/08/07/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81/" title="微信小程序-解决不搭建后台服务器实现短信验证">
+								微信小程序-解决不搭建后台服务器实现短信验证			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 7日, 2021				
+							</p>
+							<p class="relate-post-content">
+								自从微信小程序提供云开发支持，开发者无需搭建后台服务器，使用微信提供的核心API就可以实现应用功能，此时就需要小程序能够自己发送短信，比如短信验证码，榛子云短信(http://smsow.zhenzikj.com)为此开发了一套SDK...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/08/07/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9F%AD%E4%BF%A1%E9%AA%8C%E8%AF%81/" title="微信小程序-解决不搭建后台服务器实现短信验证">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover13.jpg" alt="微信小程序-解决不搭建后台服务器实现短信验证"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/08/07/Node.js-%E8%A7%A3%E6%9E%90%E8%AF%B7%E6%B1%82/" title="Node.js-解析请求">
+								Node.js-解析请求			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 7日, 2021				
+							</p>
+							<p class="relate-post-content">
+								解析get请求1.引入HTTP模块
+1const http = require(&#x27;http&#x27;)
+
+2.创建网络服务
+123const server = http.createServer((req, res) =&...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/08/07/Node.js-%E8%A7%A3%E6%9E%90%E8%AF%B7%E6%B1%82/" title="Node.js-解析请求">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover6.jpg" alt="Node.js-解析请求"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/02/24/Express%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8ERouter/" title="Express中间件与Router">
+								Express中间件与Router			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 24日, 2024				
+							</p>
+							<p class="relate-post-content">
+								Router模块
+
+模块化搭建（与Vue类似）
+先引入router模块，挂载到具体路由，在通过export抛出
+最后在app上注册全局注册
+
+router
+1234567891011121314151617//这是路由模块const ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/02/24/Express%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8ERouter/" title="Express中间件与Router">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover10.jpg" alt="Express中间件与Router"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/02/04/docker%E5%85%A5%E9%97%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/" title="docker入门及配置">
+								docker入门及配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2024				
+							</p>
+							<p class="relate-post-content">
+								什么是docker？
+Docker是一个开源的应用容器引擎，它基于go语言开发，并遵从Apache2.0开源协议。使用Docker可以让开发者封装他们的应用以及依赖包到一个可移植的容器中，然后发布到任意的 Linux 机器上，也可以实...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/02/04/docker%E5%85%A5%E9%97%A8%E5%8F%8A%E9%85%8D%E7%BD%AE/" title="docker入门及配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/docker.jpg" alt="docker入门及配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/02/03/Nodejs%E4%BA%A4%E4%BA%92%E4%BB%A5%E5%8F%8A%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="Nodejs交互以及跨域问题">
+								Nodejs交互以及跨域问题			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 3日, 2024				
+							</p>
+							<p class="relate-post-content">
+								Nodejs跨域问题
+使用CORS（主要）
+使用Jsonp（只支持get请求）
+
+
+cors：
+npm install cors（安装cors中间件）
+const cors = require(‘cors’)
+调用 app.use(c...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/02/03/Nodejs%E4%BA%A4%E4%BA%92%E4%BB%A5%E5%8F%8A%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="Nodejs交互以及跨域问题">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover20.jpg" alt="Nodejs交互以及跨域问题"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/01/26/Nodejs-Express%E4%B8%8EWeb%E5%BC%80%E5%8F%91/" title="'Nodejs:Express与Web开发'">
+								'Nodejs:Express与Web开发'			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 26日, 2024				
+							</p>
+							<p class="relate-post-content">
+								Express模块
+express是基于Nodejs的用于快速搭建Web平台的包
+
+示例
+1234567891011121314151617181920212223const express = require(&quot;expre...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/01/26/Nodejs-Express%E4%B8%8EWeb%E5%BC%80%E5%8F%91/" title="'Nodejs:Express与Web开发'">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover9.jpg" alt="&#39;Nodejs:Express与Web开发&#39;"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '99ff49b3df2e997ae9c0',
+			clientSecret: '979c81a549e385031fb92272907a15abb144eda4',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'JustLikeCatnip.github.io',
+			owner: 'JustLikeCatnip',
+			admin: 'JustLikeCatnip',
+			distractionFreeMode: 'true',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2020 - 2024, content by Cappuccino. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+	
+<script src="/plugin/love/love.js"></script>
+
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":350},"mobile":{"show":true},"log":false});</script></body>	
+</html>
